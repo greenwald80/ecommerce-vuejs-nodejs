@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+
+//компоненты, которым добавляем урлы
 import vCatalog from '../components/v-catalog';
 import vCart from '../components/v-cart';
 
@@ -16,7 +18,7 @@ let router = new Router({
             path:'/cart',
             name:'cart',
             component:vCart,
-            props:true
+            props:true//чтобы передавать данные при переходе на другой url
         }
     ]
 })

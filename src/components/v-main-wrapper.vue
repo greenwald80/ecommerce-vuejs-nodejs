@@ -2,7 +2,7 @@
   <div class="v-main-wrapper">
     <p>{{title}}</p>
     <keep-alive>
-      <!-- чтобы сохранить состояние при изменении урл  -->
+      <!-- keep-alive: чтобы сохранить состояние компонентов при изменении урл  -->
       <router-view></router-view>
     </keep-alive>
     
