@@ -34,7 +34,15 @@ let store = new Vuex.Store({//1) создаю хранилище
         },
         REMOVE_FROM_CART: (state, index) => {
             state.cart.splice(index, 1);
+        },
+        INCREMENT: (state, index) => {
+            state.cart[index].quantity++;
+        },
+        DECREMENT:(state,index)=>{
+            if(state.cart[index].quantity>1)
+            state.cart[index].quantity--;
         }
+
     },
     actions: {//асинхронные методы, действия, могут выполнять условновно одновременно (загрузка, изменение, добавление, удаление)
         GET_PRODUCTS_FROM_API({ commit }) {//2) получаю все продукты из API
@@ -57,9 +65,14 @@ let store = new Vuex.Store({//1) создаю хранилище
         },
         DELETE_FROM_CART({ commit }, index) {
             commit('REMOVE_FROM_CART', index);
-
-        }
-    },//
+        },
+        DECREMENT_CART_ITEM({ commit }, index) {
+            commit('DECREMENT', index);
+        },
+        INCREMENT_CART_ITEM({ commit }, index) {
+            commit('INCREMENT', index);
+        },
+    },
     getters: {//5) короткий способ для получения информации о данных в state
         PRODUCTS(state) {
             return state.products;

@@ -6,7 +6,7 @@
       alt="img"
     />
     <p class="v-catalog-item__name">{{product_data.name}}</p>
-    <p class="v-catalog-item__price">Price: {{product_data.price}} rub.</p>
+    <p class="v-catalog-item__price">Price: {{product_data.price}} ILS</p>
     <button class="v-catalog-item__add_to_cart_btn btn" @click="addToCart">Add to cart</button>
   </div>
 </template>
