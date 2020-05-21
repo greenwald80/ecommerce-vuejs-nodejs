@@ -38,6 +38,13 @@ export default {
     }
   },
   mounted() {
+    //если не пользоваться mapActions, то то же самое будет выглядеть так:
+    // this.$store.dispatch("GET_PRODUCTS_FROM_API").then(response => {
+    //   if (response.data) {
+    //     console.log("Data arrived: ", response.data);
+    //   }
+
+    //то же самое, только с ипользованием mapActions
     //после того, как отрендерился весь html и появились реактивные связки
     this.GET_PRODUCTS_FROM_API().then(response => {
       if (response.data) {

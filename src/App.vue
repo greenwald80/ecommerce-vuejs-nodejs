@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <p>VUE!</p>
+    <p>Welcome to our online-shop!</p>
     <v-main-wrapper/>
   </div>
 </template>

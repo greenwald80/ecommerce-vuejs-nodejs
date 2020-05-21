@@ -16,7 +16,7 @@ export default {
   props: {},
   data() {
     return {
-      title: "Main wrapper"
+      title: "VueJS + NodeJS"
     };
   },
   computed: {},

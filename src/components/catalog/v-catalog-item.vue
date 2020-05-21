@@ -2,7 +2,7 @@
   <div class="v-catalog-item">
     <img
       class="v-catalog-item__image"
-      v-bind:src=" require('../assets/images/'+product_data.image) "
+      v-bind:src=" require('@/assets/images/'+product_data.image) "
       alt="img"
     />
     <p class="v-catalog-item__name">{{product_data.name}}</p>
@@ -44,6 +44,9 @@ export default {
   margin-bottom: $margin * 2;
   &__image {
     width: 100px;
+  }
+  &__add_to_cart_btn{
+    cursor: pointer;
   }
 }
 </style>
