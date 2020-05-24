@@ -1,9 +1,11 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+
 import getters from './getters/getters';
 import mutations from './mutations/mutations';
 import commonActions from './actions/actions';//чтобы отделить обычные экшены от апи
 import apiRequests from './actions/api-request';//целенаправленно отделил экшенс апи 
+
 let actions = {...commonActions,...apiRequests};//соединяю вместе, чтобы обращаться в коде как к однуму экшенс
 
 Vue.use(Vuex);
@@ -13,7 +15,9 @@ Vue.use(Vuex);
 let store = new Vuex.Store({//1) создаю хранилище
     state: {//состояние данных, хранятся переменные, массивы, объекты
         products: [],//1) записал новый пустой массив в state
-        cart: []
+        cart: [],
+        isMobile:false,
+        isDesktop:true
     },
     mutations,
     actions,

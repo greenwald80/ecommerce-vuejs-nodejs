@@ -4,7 +4,11 @@
       <div class="v-catalog__link_to_cart">Cart: {{CART.length}}</div>
     </router-link>
     <h1>Catalog</h1>
-    <v-select v-bind:selected="selected" v-bind:options="categories" @select="sortByCategories" />
+    <v-select 
+    v-bind:selected="selected" 
+    v-bind:options="categories" 
+    @select="sortByCategories" 
+    v-bind:isExpanded="IS_DESKTOP" />
     <hr />
     <div class="v-catalog__list">
       <v-catalog-item
@@ -41,7 +45,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["PRODUCTS", "CART"]),
+    ...mapGetters(["PRODUCTS", "CART","IS_MOBILE","IS_DESKTOP"]),
     filteredProducts() {
       if (this.sortedProducts.length) {
         return this.sortedProducts;

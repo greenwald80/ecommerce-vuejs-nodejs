@@ -1,19 +1,40 @@
 <template>
   <div id="app">
     <p>Welcome to our online-shop!</p>
-    <v-main-wrapper/>
+    <v-main-wrapper />
   </div>
 </template>
 
 <script>
-import vMainWrapper from './components/v-main-wrapper'
+import vMainWrapper from "./components/v-main-wrapper";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
-  name: 'App',
+  name: "app",
   components: {
-   vMainWrapper
+    vMainWrapper
+  },
+  computed: {
+    ...mapGetters(["IS_MOBILE", "IS_DESKTOP"])
+  },
+  methods: {
+    ...mapActions(["SET_MOBILE", "SET_DESKTOP"])
+  },
+  mounted() {
+    let vm = this;
+    window.addEventListener("resize", function() {
+      if (window.innerWidth > 767) {
+        //this.$store.dispatch("SET_DESKTOP"); //без использования mapActions
+        vm.SET_DESKTOP(); //с использованием mapActions
+        console.log("Desktop", vm.SET_DESKTOP);
+      } else {
+        //this.$store.dispatch("SET_MOBILE");
+        vm.SET_MOBILE();
+        console.log("Mobile", vm.SET_MOBILE);
+      }
+    });
   }
-}
+};
 </script>
 
 <style>

@@ -1,4 +1,4 @@
-export default{
+export default {
     //синхронные изменения данных в состоянии (state)
     SET_PRODUCTS_TO_STATE: (state, products) => {//4) мутация ответственна за то, чтобы продукты из actions появились в state
         state.products = products;//обращаюсь к пустому массиву state.products и заполняю его с помощью products
@@ -29,5 +29,13 @@ export default{
     DECREMENT: (state, index) => {
         if (state.cart[index].quantity > 1)
             state.cart[index].quantity--;
+    },
+    SWITCH_MOBILE: (state) => {
+        state.isMobile = true;
+        state.isDesktop = false;
+    },
+    SWITCH_DESKTOP: (state) => {
+        state.isMobile = false;
+        state.isDesktop = true;
     }
 }
