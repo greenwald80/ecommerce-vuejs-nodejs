@@ -57,14 +57,19 @@ export default {
     },
     sortByCategories(category) {
       this.sortedProducts = []; //чистит изначально отсортированный список
-      let vm = this;
-      this.PRODUCTS.map(function(item) {
+      // let vm = this;//с использованием новой переменной vm
+      // this.PRODUCTS.map(function(item) {
+      //   if (item.category === category.name) {
+      //     //сравнивает категорию продуктов из бд с выбранной категорией в селекте
+      //     vm.sortedProducts.push(item);
+      //   }
+      // });
+      this.PRODUCTS.map(item => {//более короткий и более правильный способ
         if (item.category === category.name) {
-          //сравнивает категорию продуктов из бд с выбранной категорией в селекте
-          vm.sortedProducts.push(item);
+          this.sortedProducts.push(item);
         }
       });
-      this.selected = category.name;//в селекте остается выбранная категория
+      this.selected = category.name; //в селекте остается выбранная категория
     }
   },
   mounted() {
