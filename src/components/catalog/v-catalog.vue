@@ -4,13 +4,42 @@
       <div class="v-catalog__link_to_cart">Cart: {{CART.length}}</div>
     </router-link>
     <h1>Catalog</h1>
-    <v-select
-      v-bind:selected="selected"
-      v-bind:options="categories"
-      @select="sortByCategories"
-      v-bind:isExpanded="IS_DESKTOP"
-    />
-    <hr />
+    <div class="filters">
+      <!-- <v-select
+        v-bind:selected="selected"
+        v-bind:options="categories"
+        @select="sortByCategories"
+        v-bind:isExpanded="IS_DESKTOP"
+      /> -->
+      <v-select
+        v-bind:selected="selected"
+        v-bind:options="categories"
+        @select="sortByCategories"
+        v-bind:isExpanded="false"
+      />
+      <div class="range-slider">
+        <input
+          type="range"
+          min="100"
+          max="700"
+          step="50"
+          v-model.number="minPrice"
+          @change="setRangeSlider"
+        />
+        <input
+          type="range"
+          min="100"
+          max="700"
+          step="50"
+          v-model.number="maxPrice"
+          @change="setRangeSlider"
+        />
+      </div>
+      <div class="range-values">
+        <p>Min: {{minPrice}}</p>
+        <p>Max: {{maxPrice}}</p>
+      </div>
+    </div>
     <div class="v-catalog__list">
       <v-catalog-item
         v-for="product in filteredProducts"
@@ -42,7 +71,9 @@ export default {
         { name: "Female", value: "f" }
       ],
       selected: "All",
-      sortedProducts: []
+      sortedProducts: [],
+      minPrice: 100,
+      maxPrice: 700
     };
   },
   computed: {
@@ -61,21 +92,33 @@ export default {
       this.ADD_TO_CART(data);
     },
     sortByCategories(category) {
-      this.sortedProducts = []; //чистит изначально отсортированный список
-      // let vm = this;//с использованием новой переменной vm
-      // this.PRODUCTS.map(function(item) {
+      // this.sortedProducts = []; //чистит изначально отсортированный список
+      // this.PRODUCTS.map(item => {
+      //   //более короткий и более правильный способ
       //   if (item.category === category.name) {
-      //     //сравнивает категорию продуктов из бд с выбранной категорией в селекте
-      //     vm.sortedProducts.push(item);
+      //     this.sortedProducts.push(item);
       //   }
       // });
-      this.PRODUCTS.map(item => {
-        //более короткий и более правильный способ
-        if (item.category === category.name) {
-          this.sortedProducts.push(item);
-        }
-      });
-      this.selected = category.name; //в селекте остается выбранная категория
+      // this.selected = category.name; //в селекте остается выбранная категория
+      let vm = this;
+      this.sortedProducts=[...this.PRODUCTS];
+      this.sortedProducts = this.sortedProducts.filter(function(item){
+        return item.price>=vm.minPrice && item.price <= vm.maxPrice;
+      })
+      if(category){
+        this.sortedProducts= this.sortedProducts.filter(function(e){
+          vm.selected = category.name;//vm.selected = получаю то, что выбрано в селекте
+          return e.category===category.name;
+        })
+      }
+    },
+    setRangeSlider() {
+      if (this.minPrice > this.maxPrice) {
+        let tmp = this.maxPrice;
+        this.maxPrice = this.minPrice;
+        this.minPrice = tmp;
+      }
+      this.sortByCategories();
     }
   },
   mounted() {
@@ -84,12 +127,12 @@ export default {
     //   if (response.data) {
     //     console.log("Data arrived: ", response.data);
     //   }
-
     //то же самое, только с ипользованием mapActions
     //после того, как отрендерился весь html и появились реактивные связки
     this.GET_PRODUCTS_FROM_API().then(response => {
       if (response.data) {
         console.log("Data arrived: ", response.data);
+        this.sortByCategories();
       }
     });
   }
@@ -111,5 +154,29 @@ export default {
     padding: $padding * 2;
     border: solid 1px grey;
   }
+}
+
+.filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.range-slider {
+  width: 200px;
+  margin: auto 16px;
+  text-align: center;
+  position: relative;
+}
+.range-slider svg,
+.range-slider input[type="range"] {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+input[type="range"]::-webkit-slider-thumb {
+  z-index: 2;
+  position: relative;
+  top: 2px;
+  margin-top: -7px;
 }
 </style>

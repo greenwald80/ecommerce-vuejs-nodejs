@@ -22,7 +22,7 @@ export default {
   },
   mounted() {
     let vm = this;
-    window.addEventListener("resize", function() {
+    window.addEventListener("resize", function() {//отображает раскрытый селект в десктопе и закрытый в мобайле
       if (window.innerWidth > 767) {
         //this.$store.dispatch("SET_DESKTOP"); //без использования mapActions
         vm.SET_DESKTOP(); //с использованием mapActions
@@ -33,6 +33,7 @@ export default {
         console.log("Mobile", vm.SET_MOBILE);
       }
     });
+
   }
 };
 </script>
