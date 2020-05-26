@@ -3,7 +3,7 @@
     {
       "image": "1.jpg",
       "name": "T-shirt 1",
-      "price": 100,
+      "price": 1100.12345,
       "article": "T1",
       "available": true,
       "category": "Male"
@@ -11,7 +11,7 @@
     {
       "image": "2.jpg",
       "name": "T-shirt 2",
-      "price": 150,
+      "price": 2150.12345,
       "article": "T2",
       "available": true,
       "category": "Female"
@@ -19,7 +19,7 @@
     {
       "image": "3.jpg",
       "name": "T-shirt 3",
-      "price": 200,
+      "price": 3200.12345,
       "article": "T3",
       "available": false,
       "category": "Female"
@@ -27,7 +27,7 @@
     {
       "image": "4.jpg",
       "name": "T-shirt 4",
-      "price": 300,
+      "price": 4300.12345,
       "article": "T4",
       "available": true,
       "category": "Male"
@@ -35,7 +35,7 @@
     {
       "image": "5.jpg",
       "name": "T-shirt 5",
-      "price": 500,
+      "price": 5500.12345,
       "article": "T5",
       "available": false,
       "category": "Female"
@@ -43,7 +43,7 @@
     {
       "image": "6.jpeg",
       "name": "T-shirt 6",
-      "price": 700,
+      "price": 6700.12345,
       "article": "T6",
       "available": true,
       "category": "Female"

@@ -1,11 +1,11 @@
 <template>
   <div class="v-catalog-item">
-    <v-popup 
-    v-if="isInfoPopupVisible" 
-    @closePopup="closeInfoPopup" 
-    rightButtonTitle="Add to cart"
-    :popupTitle="product_data.name"
-    @rightButtonAction="addToCart"
+    <v-popup
+      v-if="isInfoPopupVisible"
+      @closePopup="closeInfoPopup"
+      rightButtonTitle="Add to cart"
+      :popupTitle="product_data.name"
+      @rightButtonAction="addToCart"
     >
       <img
         class="v-catalog-item__image"
@@ -14,7 +14,7 @@
       />
       <div>
         <p class="v-catalog-item__name">Name: {{product_data.name}}</p>
-        <p class="v-catalog-item__price">Price: {{product_data.price}} ILS</p>
+        <p class="v-catalog-item__price">Price: {{product_data.price| toFix | formattedPrice}}</p>
         <p class="v-catalog-item__name">Category: {{product_data.category}}</p>
       </div>
     </v-popup>
@@ -25,14 +25,18 @@
       alt="img"
     />
     <p class="v-catalog-item__name">{{product_data.name}}</p>
-    <p class="v-catalog-item__price">Price: {{product_data.price}} ILS</p>
+    <p class="v-catalog-item__price">Price: {{product_data.price | toFix | formattedPrice}}</p>
     <button class="v-catalog-item__show-info" @click="showPopupInfo">Show info</button>
+    <br>
+    <br>
     <button class="v-catalog-item__add_to_cart_btn btn" @click="addToCart">Add to cart</button>
   </div>
 </template>
 
 <script>
 import vPopup from "../popup/v-popup";
+import toFix from "../../filters/toFix";
+import formattedPrice from "../../filters/price-format"
 
 export default {
   name: "v-catalog-item",
@@ -47,6 +51,10 @@ export default {
         return {};
       }
     }
+  },
+  filters: {
+    toFix,
+    formattedPrice
   },
   data() {
     return {
