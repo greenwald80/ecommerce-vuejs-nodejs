@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <p>Welcome to our online-shop!</p>
     <v-main-wrapper />
   </div>
 </template>
@@ -22,7 +21,8 @@ export default {
   },
   mounted() {
     let vm = this;
-    window.addEventListener("resize", function() {//отображает раскрытый селект в десктопе и закрытый в мобайле
+    window.addEventListener("resize", function() {
+      //отображает раскрытый селект в десктопе и закрытый в мобайле
       if (window.innerWidth > 767) {
         //this.$store.dispatch("SET_DESKTOP"); //без использования mapActions
         vm.SET_DESKTOP(); //с использованием mapActions
@@ -33,7 +33,6 @@ export default {
         console.log("Mobile", vm.SET_MOBILE);
       }
     });
-
   }
 };
 </script>
@@ -45,6 +44,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 150px;
 }
 </style>

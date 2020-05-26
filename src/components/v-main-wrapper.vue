@@ -1,22 +1,24 @@
 <template>
   <div class="v-main-wrapper">
-    <p>{{title}}</p>
+    <v-header />
     <keep-alive>
       <!-- keep-alive: чтобы сохранить состояние компонентов при изменении урл  -->
       <router-view></router-view>
     </keep-alive>
-    
   </div>
 </template>
 
 <script>
+import vHeader from "./layouts/v-header";
 
 export default {
   name: "v-main-wrapper",
+  components: {
+    vHeader
+  },
   props: {},
   data() {
     return {
-      title: "VueJS + NodeJS"
     };
   },
   computed: {},
@@ -27,7 +29,6 @@ export default {
 
 <style>
 .v-main-wrapper {
-  max-width: 900px;
   margin: 0 auto;
 }
 </style>

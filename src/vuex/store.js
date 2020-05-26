@@ -17,7 +17,8 @@ let store = new Vuex.Store({//1) создаю хранилище
         products: [],//1) записал новый пустой массив в state
         cart: [],
         isMobile: false,
-        isDesktop: true
+        isDesktop: true,
+        searchValue:''
     },
     mutations,
     actions,

@@ -10,7 +10,7 @@
         v-bind:options="categories"
         @select="sortByCategories"
         v-bind:isExpanded="IS_DESKTOP"
-      /> -->
+      />-->
       <v-select
         v-bind:selected="selected"
         v-bind:options="categories"
@@ -28,8 +28,8 @@
         />
         <input
           type="range"
-          min="100"
-          max="700"
+          min="0"
+          max="10000"
           step="50"
           v-model.number="maxPrice"
           @change="setRangeSlider"
@@ -72,12 +72,18 @@ export default {
       ],
       selected: "All",
       sortedProducts: [],
-      minPrice: 100,
-      maxPrice: 700
+      minPrice: 0,
+      maxPrice: 10000
     };
   },
   computed: {
-    ...mapGetters(["PRODUCTS", "CART", "IS_MOBILE", "IS_DESKTOP"]),
+    ...mapGetters([
+      "PRODUCTS",
+      "CART",
+      "IS_MOBILE",
+      "IS_DESKTOP",
+      "SEARCH_VALUE"
+    ]),
     filteredProducts() {
       if (this.sortedProducts.length) {
         return this.sortedProducts;
@@ -101,15 +107,15 @@ export default {
       // });
       // this.selected = category.name; //в селекте остается выбранная категория
       let vm = this;
-      this.sortedProducts=[...this.PRODUCTS];
-      this.sortedProducts = this.sortedProducts.filter(function(item){
-        return item.price>=vm.minPrice && item.price <= vm.maxPrice;
-      })
-      if(category){
-        this.sortedProducts= this.sortedProducts.filter(function(e){
-          vm.selected = category.name;//vm.selected = получаю то, что выбрано в селекте
-          return e.category===category.name;
-        })
+      this.sortedProducts = [...this.PRODUCTS];
+      this.sortedProducts = this.sortedProducts.filter(function(item) {
+        return item.price >= vm.minPrice && item.price <= vm.maxPrice;
+      });
+      if (category) {
+        this.sortedProducts = this.sortedProducts.filter(function(e) {
+          vm.selected = category.name; //vm.selected = получаю то, что выбрано в селекте
+          return e.category === category.name;
+        });
       }
     },
     setRangeSlider() {
@@ -119,6 +125,16 @@ export default {
         this.minPrice = tmp;
       }
       this.sortByCategories();
+    },
+    sortProductsBySearchValue(value) {
+      this.sortedProducts = [...this.PRODUCTS];
+      if (value) {
+        this.sortedProducts = this.sortedProducts.filter(function(item) {
+          return item.name.toLowerCase().includes(value.toLowerCase());
+        });
+      } else {
+        this.sortedProducts = this.PRODUCTS;
+      }
     }
   },
   mounted() {
@@ -133,8 +149,14 @@ export default {
       if (response.data) {
         console.log("Data arrived: ", response.data);
         this.sortByCategories();
+        this.sortProductsBySearchValue(this.SEARCH_VALUE);
       }
     });
+  },
+  watch: {
+    SEARCH_VALUE() {
+      this.sortProductsBySearchValue(this.SEARCH_VALUE);
+    }
   }
 };
 </script>
@@ -149,7 +171,7 @@ export default {
   }
   &__link_to_cart {
     position: absolute;
-    top: 10px;
+    top: 120px;
     right: 10px;
     padding: $padding * 2;
     border: solid 1px grey;

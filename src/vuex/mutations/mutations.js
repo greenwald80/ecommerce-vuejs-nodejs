@@ -37,5 +37,8 @@ export default {
     SWITCH_DESKTOP: (state) => {
         state.isMobile = false;
         state.isDesktop = true;
+    },
+    SET_SEARCH_VALUE_TO_VUEX: (state, value) => {
+        state.searchValue = value;
     }
 }
