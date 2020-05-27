@@ -1,5 +1,5 @@
 <template>
-  <div class="v-catalog-item">
+  <div class="v-catalog-item" @click="productClick">
     <v-popup
       v-if="isInfoPopupVisible"
       @closePopup="closeInfoPopup"
@@ -10,7 +10,7 @@
       <img
         class="v-catalog-item__image"
         v-bind:src=" require('@/assets/images/'+product_data.image) "
-        alt="img"
+        alt="img" 
       />
       <div>
         <p class="v-catalog-item__name">Name: {{product_data.name}}</p>
@@ -65,14 +65,15 @@ export default {
   methods: {
     addToCart() {
       this.$emit("addToCart", this.product_data);
-      //console.log("Added to cart");
     },
     showPopupInfo() {
-      console.log("Info");
       this.isInfoPopupVisible = true;
     },
     closeInfoPopup() {
       this.isInfoPopupVisible = false;
+    },
+    productClick(){
+      this.$emit('productClick',this.product_data.article);
     }
   }
 };
@@ -87,7 +88,10 @@ export default {
   &__image {
     width: 100px;
   }
-  &__add_to_cart_btn {
+  &__add_to_cart_btn{
+    cursor: pointer;
+  }
+  &__show-info{
     cursor: pointer;
   }
 }

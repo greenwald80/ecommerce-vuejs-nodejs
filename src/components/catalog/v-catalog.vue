@@ -20,17 +20,17 @@
       <div class="range-slider">
         <input
           type="range"
-          min="100"
-          max="700"
-          step="50"
+          min="1000"
+          max="7000"
+          step="100"
           v-model.number="minPrice"
           @change="setRangeSlider"
         />
         <input
           type="range"
-          min="0"
-          max="10000"
-          step="50"
+          min="1000"
+          max="7000"
+          step="100"
           v-model.number="maxPrice"
           @change="setRangeSlider"
         />
@@ -46,6 +46,7 @@
         :key="product.article"
         v-bind:product_data="product"
         @addToCart="addToCart"
+        @productClick="productClick"
       />
     </div>
   </div>
@@ -72,8 +73,9 @@ export default {
       ],
       selected: "All",
       sortedProducts: [],
-      minPrice: 0,
-      maxPrice: 10000
+      minPrice: 1000,
+      maxPrice: 7000,
+      title: "Catalog"
     };
   },
   computed: {
@@ -135,6 +137,9 @@ export default {
       } else {
         this.sortedProducts = this.PRODUCTS;
       }
+    },
+    productClick(article) {
+      this.$router.push({ name: "product", query: { product: article } });
     }
   },
   mounted() {
@@ -155,6 +160,7 @@ export default {
   },
   watch: {
     SEARCH_VALUE() {
+      //следит за SEARCH_VALUE и если меняется значение, то вызывает функцию sortProductsBySearchValue
       this.sortProductsBySearchValue(this.SEARCH_VALUE);
     }
   }

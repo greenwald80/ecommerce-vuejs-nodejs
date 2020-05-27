@@ -9,7 +9,7 @@
         <i class="material-icons" @click="search(searchValue)">search</i>
       </button>
       <button class="search_btn">
-        <i class="material-icons" @click="clearSearchField">clear</i>
+        <i class="material-icons" @click="clearSearchField">cancel</i>
       </button>
     </div>
   </div>
