@@ -1,5 +1,6 @@
 <template>
   <div class="v-catalog">
+    <v-notification :messages="messages" :timeout="3000"/>
     <router-link :to="{name:'cart',params:{cart_data:CART}}">
       <div class="v-catalog__link_to_cart">Cart: {{CART.length}}</div>
     </router-link>
@@ -41,12 +42,18 @@
       </div>
     </div>
     <div class="v-catalog__list">
-      <v-catalog-item
+      <!-- <v-catalog-item
         v-for="product in filteredProducts"
         :key="product.article"
         v-bind:product_data="product"
         @addToCart="addToCart"
         @productClick="productClick"
+      />-->
+      <v-catalog-item
+        v-for="product in filteredProducts"
+        :key="product.article"
+        v-bind:product_data="product"
+        @addToCart="addToCart"
       />
     </div>
   </div>
@@ -56,13 +63,15 @@
 import vCatalogItem from "./v-catalog-item";
 import { mapActions, mapGetters } from "vuex";
 import vSelect from "../v-select";
+import vNotification from "../notifications/v-notification";
 
 export default {
   name: "v-catalog",
   props: {},
   components: {
     vCatalogItem,
-    vSelect
+    vSelect,
+    vNotification
   },
   data() {
     return {
@@ -75,7 +84,8 @@ export default {
       sortedProducts: [],
       minPrice: 1000,
       maxPrice: 7000,
-      title: "Catalog"
+      title: "Catalog",
+      messages: []
     };
   },
   computed: {
@@ -97,7 +107,10 @@ export default {
   methods: {
     ...mapActions(["GET_PRODUCTS_FROM_API", "ADD_TO_CART"]),
     addToCart(data) {
-      this.ADD_TO_CART(data);
+      this.ADD_TO_CART(data).then(() => {
+        let timeStamp = Date.now().toLocaleString();
+        this.messages.unshift({ name: "Product added to cart", id: timeStamp, icon:'check_circle' }); //unshift то же самое, что push, только порядок добавления в массив наоборот
+      });
     },
     sortByCategories(category) {
       // this.sortedProducts = []; //чистит изначально отсортированный список
