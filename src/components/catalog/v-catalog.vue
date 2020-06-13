@@ -1,6 +1,6 @@
 <template>
   <div class="v-catalog">
-    <v-notification :messages="messages" :timeout="3000"/>
+    <v-notification :messages="messages" :timeout="3000" />
     <router-link :to="{name:'cart',params:{cart_data:CART}}">
       <div class="v-catalog__link_to_cart">Cart: {{CART.length}}</div>
     </router-link>
@@ -43,7 +43,7 @@
     </div>
     <div class="v-catalog__list">
       <!-- <v-catalog-item
-        v-for="product in filteredProducts"
+        v-for="product in filteredProducts"//products from API
         :key="product.article"
         v-bind:product_data="product"
         @addToCart="addToCart"
@@ -85,7 +85,7 @@ export default {
       minPrice: 1000,
       maxPrice: 7000,
       title: "Catalog",
-      messages: []
+      messages: [],
     };
   },
   computed: {
@@ -109,7 +109,11 @@ export default {
     addToCart(data) {
       this.ADD_TO_CART(data).then(() => {
         let timeStamp = Date.now().toLocaleString();
-        this.messages.unshift({ name: "Product added to cart", id: timeStamp, icon:'check_circle' }); //unshift то же самое, что push, только порядок добавления в массив наоборот
+        this.messages.unshift({
+          name: "Product added to cart",
+          id: timeStamp,
+          icon: "check_circle"
+        }); //unshift то же самое, что push, только порядок добавления в массив наоборот
       });
     },
     sortByCategories(category) {
@@ -165,7 +169,7 @@ export default {
     //после того, как отрендерился весь html и появились реактивные связки
     this.GET_PRODUCTS_FROM_API().then(response => {
       if (response.data) {
-        console.log("Data arrived: ", response.data);
+        //console.log("Data arrived: ", response.data);
         this.sortByCategories();
         this.sortProductsBySearchValue(this.SEARCH_VALUE);
       }

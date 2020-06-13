@@ -50,7 +50,6 @@ export default {
     let vm = this;
     document.addEventListener('click',function(item){
         if(item.target===vm.$refs['popup_wrapper']){
-            //console.log('123');
             vm.closePopup();
         }
     })
